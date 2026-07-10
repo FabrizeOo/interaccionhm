@@ -1,0 +1,5 @@
+{
+  "rewrites": [
+    { "source": "/((?!simulador3d/.*).*)", "destination": "/index.html" }
+  ]
+}
