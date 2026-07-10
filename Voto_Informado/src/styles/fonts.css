@@ -1,0 +1,743 @@
+/* ============================================================
+   GOOGLE FONTS — Lexend (dyslexia-friendly)
+   ============================================================ */
+@import url('https://fonts.googleapis.com/css2?family=Lexend:wght@300;400;500;600;700;800&display=swap');
+
+/* ============================================================
+   DESIGN TOKENS — modo normal (fallbacks)
+   Usados por ToggleSwitch vía CSS variables — sin filtros
+   ============================================================ */
+:root {
+  --sw-on-track:         #22c55e;
+  --sw-on-thumb:         #ffffff;
+  --sw-off-track:        #d1d5db;
+  --sw-off-thumb:        #ffffff;
+  --sw-on-outline-color: transparent;
+  --sw-off-outline-color:transparent;
+  --focus-color:         #c41e3a;
+  --focus-width:         2px;
+  --focus-offset:        2px;
+}
+
+/* ============================================================
+   WCAG 2.5.5 — Mínimo 44×44px para objetivos táctiles
+   ============================================================ */
+button:not([aria-hidden="true"]),
+a[href]:not([aria-hidden="true"]),
+[role="button"]:not([aria-hidden="true"]),
+[role="tab"]:not([aria-hidden="true"]),
+[role="radio"]:not([aria-hidden="true"]),
+input:not([aria-hidden="true"]):not([type="hidden"]),
+select:not([aria-hidden="true"]) {
+  min-height: 44px;
+}
+
+
+/* ╔══════════════════════════════════════════════════════════════════════╗
+   ║  MODO 1 — ALTO CONTRASTE   (html.high-contrast)                     ║
+   ║  Fondo negro · Texto blanco · Acento amarillo #FFD600               ║
+   ║  Las imágenes reciben borde blanco + contraste suave                ║
+   ║  Logos SVG y estructura: sin cambios                                 ║
+   ╚══════════════════════════════════════════════════════════════════════╝ */
+
+html.high-contrast {
+  /* ── Design Tokens ── */
+  --sw-on-track:          #FFD600;
+  --sw-on-thumb:          #FFFFFF;
+  --sw-off-track:         #666666;
+  --sw-off-thumb:         #FFFFFF;
+  --sw-on-outline-color:  transparent;
+  --sw-off-outline-color: transparent;
+  --focus-color:          #FFD600;
+  --focus-width:          4px;
+  --focus-offset:         3px;
+}
+
+/* ── Fondo negro en todos los contenedores estructurales ── */
+html.high-contrast body,
+html.high-contrast main,
+html.high-contrast header,
+html.high-contrast footer,
+html.high-contrast nav,
+html.high-contrast section,
+html.high-contrast article,
+html.high-contrast aside,
+html.high-contrast div,
+html.high-contrast span,
+html.high-contrast form,
+html.high-contrast fieldset,
+html.high-contrast ul,
+html.high-contrast ol,
+html.high-contrast li,
+html.high-contrast table,
+html.high-contrast thead,
+html.high-contrast tbody,
+html.high-contrast tr,
+html.high-contrast td,
+html.high-contrast th {
+  background-color: #000000 !important;
+  background-image: none !important;
+  box-shadow:       none !important;
+  text-shadow:      none !important;
+}
+
+/* ── Texto: BLANCO ── */
+html.high-contrast * { color: #FFFFFF !important; }
+
+/* ── Bordes: BLANCO visible (2px mínimo) ── */
+html.high-contrast *:not(img):not(video):not(svg):not(path):not(circle):not(rect):not(line) {
+  border-color: #FFFFFF !important;
+}
+
+/* ── Botones / interactivos: amarillo para primarios ── */
+html.high-contrast button,
+html.high-contrast [role="button"],
+html.high-contrast [role="tab"],
+html.high-contrast [role="radio"],
+html.high-contrast select {
+  color:            #FFD600 !important;
+  background-color: #000000 !important;
+  border:           2px solid #FFFFFF !important;
+}
+
+html.high-contrast button:hover,
+html.high-contrast [role="button"]:hover {
+  background-color: #111111 !important;
+  border-color:     #FFD600 !important;
+}
+
+/* ── Activo / seleccionado: amarillo sólido ── */
+html.high-contrast button[aria-pressed="true"],
+html.high-contrast button[aria-selected="true"],
+html.high-contrast button[aria-current="page"],
+html.high-contrast [role="tab"][aria-selected="true"],
+html.high-contrast [role="radio"][aria-checked="true"] {
+  background-color: #FFD600 !important;
+  color:            #000000 !important;
+  border-color:     #FFD600 !important;
+}
+
+/* ── Focus: borde amarillo 4px ── */
+html.high-contrast *:focus-visible {
+  outline:        var(--focus-width) solid var(--focus-color) !important;
+  outline-offset: var(--focus-offset) !important;
+  box-shadow:     none !important;
+}
+
+/* ── Links ── */
+html.high-contrast a {
+  color:                  #FFD600 !important;
+  text-decoration:        underline !important;
+  text-decoration-thickness: 2px !important;
+}
+
+/* ── Inputs ── */
+html.high-contrast input:not([type="hidden"]):not([type="range"]),
+html.high-contrast textarea {
+  background-color: #000000 !important;
+  color:            #FFFFFF !important;
+  border:           2px solid #FFFFFF !important;
+}
+
+html.high-contrast input::placeholder,
+html.high-contrast textarea::placeholder { color: #888888 !important; }
+
+/* ── SVG iconos: blancos (legibles sobre negro) ── */
+html.high-contrast svg { color: #FFFFFF !important; }
+html.high-contrast button svg,
+html.high-contrast a svg,
+html.high-contrast [role="button"] svg { color: #FFD600 !important; }
+
+html.high-contrast button[aria-pressed="true"] svg,
+html.high-contrast button[aria-selected="true"] svg,
+html.high-contrast button[aria-current="page"] svg { color: #000000 !important; }
+
+/* ── Gradientes → negro ── */
+html.high-contrast [class*="from-"],
+html.high-contrast [class*="to-"],
+html.high-contrast [class*="bg-gradient"] {
+  background-image: none !important;
+  background-color: #000000 !important;
+}
+
+/* ── Tarjetas: fondo negro + borde blanco 2px + texto blanco ── */
+html.high-contrast [data-card] {
+  background-color: #000000 !important;
+  background-image: none !important;
+  border:           2px solid #FFFFFF !important;
+  color:            #FFFFFF !important;
+  box-shadow:       none !important;
+}
+
+html.high-contrast [data-card]:hover {
+  background-color: #0d0d0d !important;
+  border-color:     #FFD600 !important;
+  transform: none !important;
+}
+
+html.high-contrast [data-card] * { color: #FFFFFF !important; }
+html.high-contrast [data-card] svg { color: #FFFFFF !important; }
+
+/* ── Banner ElecciA ── */
+html.high-contrast [data-banner="eleccia"] {
+  background-color: #000000 !important;
+  background-image: none !important;
+  border:           2px solid #FFFFFF !important;
+}
+
+html.high-contrast [data-banner="eleccia"] * { color: #FFFFFF !important; }
+html.high-contrast [data-banner="eleccia"] svg { color: #FFD600 !important; }
+
+/* ── Tablas ── */
+html.high-contrast thead { background-color: #111111 !important; }
+html.high-contrast tr:nth-child(even) { background-color: #0a0a0a !important; }
+
+/* ── Estados semánticos — versiones visibles sobre negro ── */
+html.high-contrast .text-green-600,
+html.high-contrast .text-green-700  { color: #00CC66 !important; }
+html.high-contrast .text-red-500,
+html.high-contrast .text-red-600,
+html.high-contrast .text-red-700    { color: #FF6666 !important; }
+html.high-contrast .text-amber-600,
+html.high-contrast .text-amber-700  { color: #FFD600 !important; }
+
+/* ══════════════════════════════════════════════════════════════════════
+   IMÁGENES — MODO 1
+   Borde blanco 2-3px + ajuste de contraste suave
+   Logos SVG no se ven afectados (no son <img>)
+   ═══════════════════════════════════════════════════════════════════════ */
+html.high-contrast img {
+  border:  3px solid #FFFFFF !important;
+  outline: 1px solid #FFFFFF !important;
+  filter:  contrast(1.15) brightness(0.95) !important;
+}
+
+
+/* ╔══════════════════════════════════════════════════════════════════════╗
+   ║  MODO 2 — ALTO CONTRASTE ESTRICTO   (html.high-contrast-strict)     ║
+   ║  PALETA ÚNICA: Negro · Blanco · Amarillo #FFD600                    ║
+   ║  Imágenes: filtro de alto contraste + borde blanco grueso (3px)     ║
+   ╚══════════════════════════════════════════════════════════════════════╝ */
+
+html.high-contrast-strict {
+  /* ── Design Tokens ── */
+  --sw-on-track:          #FFD600;
+  --sw-on-thumb:          #000000;
+  --sw-off-track:         #333333;
+  --sw-off-thumb:         #FFFFFF;
+  --sw-on-outline-color:  #FFD600;   /* borde grueso en toggle ON */
+  --sw-off-outline-color: #FFFFFF;   /* borde grueso en toggle OFF */
+  --focus-color:          #FFD600;
+  --focus-width:          4px;
+  --focus-offset:         3px;
+}
+
+/* ── Fondo negro absoluto, sin excepciones ── */
+html.high-contrast-strict body,
+html.high-contrast-strict main,
+html.high-contrast-strict header,
+html.high-contrast-strict footer,
+html.high-contrast-strict nav,
+html.high-contrast-strict section,
+html.high-contrast-strict article,
+html.high-contrast-strict aside,
+html.high-contrast-strict div,
+html.high-contrast-strict span,
+html.high-contrast-strict form,
+html.high-contrast-strict fieldset,
+html.high-contrast-strict ul,
+html.high-contrast-strict ol,
+html.high-contrast-strict li,
+html.high-contrast-strict table,
+html.high-contrast-strict thead,
+html.high-contrast-strict tbody,
+html.high-contrast-strict tr,
+html.high-contrast-strict td,
+html.high-contrast-strict th {
+  background-color: #000000 !important;
+  background-image: none !important;
+  box-shadow:       none !important;
+  text-shadow:      none !important;
+  opacity:          1 !important;
+}
+
+/* ── Texto: BLANCO ── */
+html.high-contrast-strict * { color: #FFFFFF !important; }
+
+/* ── Bordes: BLANCO GRUESO (3px mínimo) en todo ── */
+html.high-contrast-strict *:not(img):not(video):not(svg):not(path):not(circle):not(rect) {
+  border-color: #FFFFFF !important;
+}
+
+/* ── Botones: negro + borde blanco + texto amarillo ── */
+html.high-contrast-strict button,
+html.high-contrast-strict [role="button"],
+html.high-contrast-strict [role="tab"],
+html.high-contrast-strict [role="radio"],
+html.high-contrast-strict select {
+  color:            #FFD600 !important;
+  background-color: #000000 !important;
+  border:           3px solid #FFFFFF !important;
+}
+
+html.high-contrast-strict button:hover,
+html.high-contrast-strict [role="button"]:hover {
+  background-color: #FFD600 !important;
+  color:            #000000 !important;
+  border-color:     #FFD600 !important;
+}
+
+/* ── Activo / seleccionado: amarillo sólido ── */
+html.high-contrast-strict button[aria-pressed="true"],
+html.high-contrast-strict button[aria-selected="true"],
+html.high-contrast-strict button[aria-current="page"],
+html.high-contrast-strict [role="tab"][aria-selected="true"],
+html.high-contrast-strict [role="radio"][aria-checked="true"] {
+  background-color: #FFD600 !important;
+  color:            #000000 !important;
+  border-color:     #FFD600 !important;
+}
+
+/* ── Focus: 4px amarillo ── */
+html.high-contrast-strict *:focus-visible {
+  outline:        var(--focus-width) solid var(--focus-color) !important;
+  outline-offset: var(--focus-offset) !important;
+  box-shadow:     0 0 0 6px rgba(255,214,0,0.25) !important;
+}
+
+/* ── Links ── */
+html.high-contrast-strict a {
+  color:                  #FFD600 !important;
+  text-decoration:        underline !important;
+  text-decoration-thickness: 2px !important;
+}
+
+/* ── Inputs ── */
+html.high-contrast-strict input:not([type="hidden"]):not([type="range"]),
+html.high-contrast-strict textarea {
+  background-color: #000000 !important;
+  color:            #FFFFFF !important;
+  border:           3px solid #FFFFFF !important;
+}
+
+html.high-contrast-strict input::placeholder,
+html.high-contrast-strict textarea::placeholder { color: #888888 !important; }
+
+/* ── SVG iconos: amarillo ── */
+html.high-contrast-strict svg { color: #FFD600 !important; }
+html.high-contrast-strict button[aria-pressed="true"] svg,
+html.high-contrast-strict button[aria-selected="true"] svg { color: #000000 !important; }
+
+/* ── ELIMINAR gradientes, transparencias, sombras ── */
+html.high-contrast-strict [class*="from-"],
+html.high-contrast-strict [class*="to-"],
+html.high-contrast-strict [class*="bg-gradient"],
+html.high-contrast-strict [class*="bg-white/"],
+html.high-contrast-strict [class*="bg-black/"] {
+  background-image: none !important;
+  background-color: #000000 !important;
+}
+
+/* ── Separadores ── */
+html.high-contrast-strict hr { border-color: #FFD600 !important; border-width: 2px !important; }
+
+/* ── Tarjetas: negro + borde blanco 3px + texto blanco ── */
+html.high-contrast-strict [data-card] {
+  background-color: #000000 !important;
+  background-image: none !important;
+  border:           3px solid #FFFFFF !important;
+  color:            #FFFFFF !important;
+  box-shadow:       none !important;
+}
+
+html.high-contrast-strict [data-card]:hover {
+  background-color: #000000 !important;
+  border-color:     #FFD600 !important;
+  transform: none !important;
+}
+
+html.high-contrast-strict [data-card] * { color: #FFFFFF !important; }
+html.high-contrast-strict [data-card] svg { color: #FFD600 !important; }
+
+/* Identificadores emoji en tarjetas (vía CSS ::before — sin cambio DOM) */
+html.high-contrast-strict [data-card="video"] h2::before      { content: "▶ "; }
+html.high-contrast-strict [data-card="presidentes"] h2::before { content: "👤 "; }
+html.high-contrast-strict [data-card="diputados"] h2::before   { content: "🏛️ "; }
+html.high-contrast-strict [data-card="senadores"] h2::before   { content: "🏦 "; }
+html.high-contrast-strict [data-card="parlamento"] h2::before  { content: "🌎 "; }
+
+/* ── Banner ElecciA ── */
+html.high-contrast-strict [data-banner="eleccia"] {
+  background-color: #000000 !important;
+  background-image: none !important;
+  border:           3px solid #FFD600 !important;
+}
+
+html.high-contrast-strict [data-banner="eleccia"] * { color: #FFD600 !important; }
+html.high-contrast-strict [data-banner="eleccia"] svg { color: #FFD600 !important; }
+
+/* ── Tablas ── */
+html.high-contrast-strict thead { background-color: #111111 !important; }
+
+/* ── Estados semánticos: sólo amarillo (paleta única) ── */
+html.high-contrast-strict .text-green-600,
+html.high-contrast-strict .text-green-700,
+html.high-contrast-strict .text-red-500,
+html.high-contrast-strict .text-red-600,
+html.high-contrast-strict .text-red-700,
+html.high-contrast-strict .text-amber-600,
+html.high-contrast-strict .text-amber-700 { color: #FFD600 !important; }
+
+/* ══════════════════════════════════════════════════════════════════════
+   IMÁGENES — MODO 2
+   Filtro de alto contraste: posterización blanco/negro
+   + borde blanco grueso 3px obligatorio
+   ═══════════════════════════════════════════════════════════════════════ */
+html.high-contrast-strict img {
+  filter:  contrast(200%) saturate(0%) brightness(1.1) !important;
+  border:  3px solid #FFFFFF !important;
+  outline: 1px solid #FFD600 !important;
+}
+
+
+/* ╔══════════════════════════════════════════════════════════════════════╗
+   ║  MODO 3 — DALTONISMO   (html.colorblind-mode)                       ║
+   ║  WCAG — Deuteranopía y Protanopía                                   ║
+   ║  Regla 1: Paleta segura — Azul #005288, Naranja #F26D21, Amarillo #FFC107   ║
+   ║  Regla 2: No solo color — íconos/símbolos junto a cada estado       ║
+   ║  Regla 3: Texturas en bloques sólidos + subrayado grueso en enlaces ║
+   ╚══════════════════════════════════════════════════════════════════════╝ */
+
+html.colorblind-mode {
+  --cb-blue:    #005288;
+  --cb-orange:  #F26D21;
+  --cb-yellow:  #FFC107;
+  --cb-dark:    #1A1A2E;
+  --cb-white:   #FFFFFF;
+
+  --sw-on-track:          var(--cb-blue);
+  --sw-on-thumb:          var(--cb-white);
+  --sw-off-track:         #666666;
+  --sw-off-thumb:         var(--cb-white);
+  --sw-on-outline-color:  transparent;
+  --sw-off-outline-color: transparent;
+  --focus-color:          var(--cb-blue);
+  --focus-width:          3px;
+  --focus-offset:         2px;
+}
+
+/* ── Focus accesible ── */
+html.colorblind-mode *:focus-visible {
+  outline:        var(--focus-width) solid var(--focus-color) !important;
+  outline-offset: var(--focus-offset) !important;
+}
+
+/* ════════════════════════════════════════════════════
+   REGLA 1 — REEMPLAZO DE PALETA
+   Eliminar rojo/verde puro → Azul oscuro, Naranja, Amarillo
+   ════════════════════════════════════════════════════ */
+
+/* Rojo institucional → Azul oscuro */
+html.colorblind-mode [class~="bg-[#c41e3a]"],
+html.colorblind-mode [class~="from-[#c41e3a]"],
+html.colorblind-mode [class~="bg-gradient-to-r"] {
+  background: var(--cb-blue) !important;
+  color: var(--cb-white) !important;
+}
+html.colorblind-mode [class~="text-[#c41e3a]"]     { color: var(--cb-blue) !important; }
+html.colorblind-mode [class~="border-[#c41e3a]"]   { border-color: var(--cb-blue) !important; }
+html.colorblind-mode [class~="border-l-[#c41e3a]"] { border-left-color: var(--cb-blue) !important; }
+html.colorblind-mode [class~="hover:bg-[#c41e3a]"]:hover,
+html.colorblind-mode [class~="hover:bg-[#a01729]"]:hover { background-color: #003d6b !important; }
+html.colorblind-mode [class~="focus:ring-[#c41e3a]"]:focus { --tw-ring-color: var(--cb-blue) !important; }
+
+/* Verde positivo → Azul oscuro */
+html.colorblind-mode .bg-green-500,
+html.colorblind-mode .bg-green-600,
+html.colorblind-mode .bg-green-700 { background-color: var(--cb-blue) !important; }
+html.colorblind-mode .text-green-500,
+html.colorblind-mode .text-green-600,
+html.colorblind-mode .text-green-700 { color: var(--cb-blue) !important; }
+html.colorblind-mode .border-green-500,
+html.colorblind-mode .border-green-600 { border-color: var(--cb-blue) !important; }
+html.colorblind-mode .border-l-green-500,
+html.colorblind-mode .border-l-4.border-green-500 { border-left-color: var(--cb-blue) !important; }
+
+/* Rojo de alerta/negativo → Naranja */
+html.colorblind-mode .text-red-500,
+html.colorblind-mode .text-red-600,
+html.colorblind-mode .text-red-700   { color: var(--cb-orange) !important; }
+html.colorblind-mode .bg-red-500,
+html.colorblind-mode .bg-red-600     { background-color: var(--cb-orange) !important; }
+html.colorblind-mode .border-red-500,
+html.colorblind-mode .border-red-600 { border-color: var(--cb-orange) !important; }
+html.colorblind-mode .border-l-red-500,
+html.colorblind-mode .border-l-4.border-red-500 { border-left-color: var(--cb-orange) !important; }
+
+/* Amarillo/warning ya es seguro, reforzar */
+html.colorblind-mode .text-yellow-500,
+html.colorblind-mode .text-yellow-600 { color: #b8860b !important; } /* amarillo oscuro para contraste */
+html.colorblind-mode .bg-yellow-400,
+html.colorblind-mode .bg-yellow-500   { background-color: var(--cb-yellow) !important; }
+
+/* ── Tarjetas institucionales: paleta segura + textura diagonal ── */
+html.colorblind-mode [data-card="presidentes"] {
+  background-color: var(--cb-blue) !important;
+  background-image: repeating-linear-gradient(
+    45deg,
+    transparent,
+    transparent 6px,
+    rgba(255,255,255,0.12) 6px,
+    rgba(255,255,255,0.12) 12px
+  ) !important;
+  border: 2px solid #003d6b !important;
+}
+
+html.colorblind-mode [data-card="diputados"] {
+  background-color: var(--cb-orange) !important;
+  background-image: repeating-linear-gradient(
+    -45deg,
+    transparent,
+    transparent 6px,
+    rgba(255,255,255,0.12) 6px,
+    rgba(255,255,255,0.12) 12px
+  ) !important;
+  border: 2px solid #c45510 !important;
+}
+
+html.colorblind-mode [data-card="senadores"] {
+  background-color: #005288 !important;
+  background-image: radial-gradient(
+    circle,
+    rgba(255,255,255,0.15) 1px,
+    transparent 1px
+  ) !important;
+  background-size: 10px 10px !important;
+  border: 2px solid #003d6b !important;
+}
+
+html.colorblind-mode [data-card="parlamento"] {
+  background-color: #1A5276 !important;
+  background-image: repeating-linear-gradient(
+    90deg,
+    transparent,
+    transparent 8px,
+    rgba(255,255,255,0.10) 8px,
+    rgba(255,255,255,0.10) 9px
+  ) !important;
+  border: 2px solid #154360 !important;
+}
+
+html.colorblind-mode [data-card="video"] {
+  background-color: var(--cb-orange) !important;
+  background-image: repeating-linear-gradient(
+    45deg,
+    transparent,
+    transparent 8px,
+    rgba(0,0,0,0.08) 8px,
+    rgba(0,0,0,0.08) 16px
+  ) !important;
+  border: 2px solid #c45510 !important;
+}
+
+/* Texto en tarjetas: blanco siempre */
+html.colorblind-mode [data-card] *   { color: var(--cb-white) !important; }
+html.colorblind-mode [data-card] svg { color: var(--cb-white) !important; }
+
+/* ════════════════════════════════════════════════════
+   REGLA 2 — NO SOLO COLOR: íconos descriptivos
+   Añadir símbolo antes de estados de estado/categoría
+   ════════════════════════════════════════════════════ */
+
+/* Identificadores de sección en tarjetas */
+html.colorblind-mode [data-card="video"] h2::before       { content: "▶ "; }
+html.colorblind-mode [data-card="presidentes"] h2::before  { content: "👤 "; }
+html.colorblind-mode [data-card="diputados"] h2::before    { content: "🏛️ "; }
+html.colorblind-mode [data-card="senadores"] h2::before    { content: "🏦 "; }
+html.colorblind-mode [data-card="parlamento"] h2::before   { content: "🌎 "; }
+
+/* Textos de estado positivo → prefijo ✓ */
+html.colorblind-mode .text-green-600::before,
+html.colorblind-mode .text-green-700::before { content: "✓ "; font-weight: 700; }
+
+/* Textos de estado negativo/alerta → prefijo ! */
+html.colorblind-mode .text-red-600::before,
+html.colorblind-mode .text-red-500::before   { content: "! "; font-weight: 700; }
+
+/* Badges y pills de estado */
+html.colorblind-mode .bg-green-100 {
+  background-color: #dbeafe !important;
+  border: 2px solid var(--cb-blue) !important;
+}
+html.colorblind-mode .bg-red-100 {
+  background-color: #fff3e0 !important;
+  border: 2px solid var(--cb-orange) !important;
+}
+
+/* ── Banner ElecciA ── */
+html.colorblind-mode [data-banner="eleccia"] {
+  background-color: #E3F2FD !important;
+  border: 2px solid var(--cb-blue) !important;
+}
+html.colorblind-mode [data-banner="eleccia"] *   { color: var(--cb-blue) !important; }
+html.colorblind-mode [data-banner="eleccia"] svg { color: var(--cb-blue) !important; }
+
+/* ════════════════════════════════════════════════════
+   TARJETAS COMPLETADO — CronogramaPage
+   Verde pastel + borde verde oscuro
+   Consistente con leyenda "Completado" (WCAG — Identificación Consistente)
+   ════════════════════════════════════════════════════ */
+
+html.colorblind-mode .bg-green-100 {
+  background-color: #d4edda !important;
+}
+
+html.colorblind-mode .border-green-500 {
+  border-color: #276221 !important;
+}
+
+/* Texto principal en tarjeta completado */
+html.colorblind-mode .bg-green-100 .text-green-800,
+html.colorblind-mode .text-green-800 {
+  color: #1a4a16 !important;
+}
+
+/* Ícono check → verde oscuro */
+html.colorblind-mode .bg-green-100 svg {
+  color: #276221 !important;
+}
+
+/* Fechas grises → sin cambio */
+html.colorblind-mode .bg-green-100 .text-gray-600 {
+  color: #4b5563 !important;
+}
+
+/* ════════════════════════════════════════════════════
+   REGLA 3 — TEXTURAS EN SÓLIDOS + SUBRAYADO EN ENLACES
+   ════════════════════════════════════════════════════ */
+
+/* Botones sólidos de color: añadir textura sutil */
+html.colorblind-mode button.bg-blue-600,
+html.colorblind-mode [class~="bg-blue-600"] {
+  background-image: repeating-linear-gradient(
+    45deg,
+    transparent,
+    transparent 8px,
+    rgba(255,255,255,0.07) 8px,
+    rgba(255,255,255,0.07) 16px
+  ) !important;
+}
+
+/* Subrayado grueso en todos los enlaces interactivos */
+html.colorblind-mode a,
+html.colorblind-mode [role="link"] {
+  text-decoration: underline !important;
+  text-decoration-thickness: 3px !important;
+  text-underline-offset: 3px !important;
+}
+
+html.colorblind-mode a:hover,
+html.colorblind-mode [role="link"]:hover {
+  text-decoration-thickness: 4px !important;
+}
+
+/* Botones de navegación tipo link */
+html.colorblind-mode button[class*="text-"][class*="hover:underline"],
+html.colorblind-mode button[class*="underline"] {
+  text-decoration: underline !important;
+  text-decoration-thickness: 3px !important;
+  text-underline-offset: 3px !important;
+}
+
+/* ════════════════════════════════════════════════════
+   TARJETA DESTACADA — DÍA DE ELECCIONES (CronogramaPage)
+   Fondo azul oscuro → textos con contraste WCAG 1.4.3
+   ════════════════════════════════════════════════════ */
+
+/* Mantener fondo azul oscuro (ya aplicado por bg-gradient-to-r → cb-blue) */
+html.colorblind-mode [data-destacado="true"] {
+  background: var(--cb-blue) !important;
+  border-left-color: #FFC107 !important;
+}
+
+/* Título principal → amarillo brillante para jerarquía */
+html.colorblind-mode [data-destacado="true"] p.text-red-900,
+html.colorblind-mode [data-destacado="true"] p[class*="text-red-900"] {
+  color: #FFC107 !important;
+}
+
+/* Fecha → blanco puro */
+html.colorblind-mode [data-destacado="true"] p.text-red-700,
+html.colorblind-mode [data-destacado="true"] p[class*="text-red-700"] {
+  color: #FFFFFF !important;
+}
+
+/* Ícono de exclamación → blanco */
+html.colorblind-mode [data-destacado="true"] svg {
+  color: #FFFFFF !important;
+}
+
+/* Botón ¡FECHA CLAVE! → naranja (cb-orange), se mantiene */
+html.colorblind-mode [data-destacado="true"] div[class*="bg-red-600"] {
+  background-color: var(--cb-orange) !important;
+  color: #FFFFFF !important;
+}
+
+/* ════════════════════════════════════════════════════
+   IMÁGENES — contraste y borde para diferenciación
+   ════════════════════════════════════════════════════ */
+html.colorblind-mode img {
+  filter:  saturate(160%) contrast(115%) !important;
+  border:  2px solid rgba(255,255,255,0.7) !important;
+  outline: 2px solid rgba(0,82,136,0.5) !important;
+}
+
+
+/* ═══════════════════════════════════════════════════════════════════════
+   MODO DISLEXIA   (html.dyslexia-mode)
+   Independiente — se combina con cualquier modo visual
+   ═══════════════════════════════════════════════════════════════════════ */
+
+html.dyslexia-mode,
+html.dyslexia-mode * {
+  font-family: 'Lexend', 'Arial Rounded MT Bold', 'Trebuchet MS', Arial, sans-serif !important;
+}
+
+html.dyslexia-mode p,
+html.dyslexia-mode li,
+html.dyslexia-mode span:not([aria-hidden]),
+html.dyslexia-mode td,
+html.dyslexia-mode th,
+html.dyslexia-mode label {
+  letter-spacing: 0.06em !important;
+  word-spacing:   0.18em !important;
+  line-height:    1.9    !important;
+}
+
+html.dyslexia-mode h1,
+html.dyslexia-mode h2,
+html.dyslexia-mode h3,
+html.dyslexia-mode h4 {
+  letter-spacing: 0.04em !important;
+  word-spacing:   0.12em !important;
+  line-height:    1.65   !important;
+}
+
+html.dyslexia-mode a {
+  text-decoration:           underline !important;
+  text-decoration-thickness: 2px       !important;
+  text-underline-offset:     4px       !important;
+}
+
+/* ═══════════════════════════════════════════════════════════════════════
+   TRANSICIÓN SUAVE — font-size
+   ═══════════════════════════════════════════════════════════════════════ */
+html { transition: font-size 0.2s ease; }
+
+/* ═══════════════════════════════════════════════════════════════════════
+   SCROLLBARS — discretos
+   ═══════════════════════════════════════════════════════════════════════ */
+::-webkit-scrollbar       { width: 6px; height: 6px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: rgba(0,0,0,.18); border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: rgba(0,0,0,.35); }

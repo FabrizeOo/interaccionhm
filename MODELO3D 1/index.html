@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Plataforma de Simulación Electoral 3D e Interactiva. Aprende a votar correctamente en un entorno virtual e inmersivo.">
+    <title>Simulador de Votación Inmersivo 3D - ONPE</title>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- CSS Stylesheets -->
+    <link rel="stylesheet" href="/src/styles/style.css">
+    <link rel="stylesheet" href="/src/styles/responsive.css">
+
+    <!-- Import Model Viewer for Augmented Reality -->
+    <script type="module" src="https://ajax.googleapis.com/ajax/libs/model-viewer/3.4.0/model-viewer.min.js"></script>
+</head>
+<body>
+    <!-- App Container -->
+    <div id="app">
+        <!-- 1. LOADING SCREEN -->
+        <div id="loading-screen" class="ui-overlay active">
+            <div class="loader-content">
+                <div class="institutional-logo">
+                    <div class="logo-box">🗳️</div>
+                    <div class="logo-text">
+                        <span class="logo-main">SIMULADOR</span>
+                        <span class="logo-sub">ELECTORAL 3D</span>
+                    </div>
+                </div>
+                <h2>Cargando Experiencia Inmersiva</h2>
+                <div class="progress-bar-container">
+                    <div id="loader-progress" class="progress-bar-fill"></div>
+                </div>
+                <p id="loader-status">Iniciando recursos de simulación...</p>
+            </div>
+        </div>
+
+        <!-- 2. WELCOME SCREEN (ESCENA 1) -->
+        <div id="welcome-screen" class="ui-overlay">
+            <div class="welcome-card">
+                <div class="flag-banner"></div>
+                <div class="card-header">
+                    <div class="gov-badge">ORGANISMO ELECTORAL DE LA REPÚBLICA</div>
+                    <h1>Simulador Virtual de Votación</h1>
+                    <p class="subtitle">Elecciones Generales 2026</p>
+                </div>
+                <div class="card-body">
+                    <p>Bienvenido al simulador interactivo de voto informado. Aquí aprenderás, paso a paso, cómo ejercer tu derecho al voto de manera correcta en el local de votación, evitando errores que puedan invalidar tu decisión.</p>
+                    
+                    <div class="features-grid">
+                        <div class="feature-item">
+                            <span class="feature-icon">🎮</span>
+                            <div>
+                                <h4>Inmersión 3D</h4>
+                                <p>Camina por el aula y vive el proceso en primera persona.</p>
+                            </div>
+                        </div>
+                        <div class="feature-item">
+                            <span class="feature-icon">📝</span>
+                            <div>
+                                <h4>Práctica Real</h4>
+                                <p>Interactúa con una réplica exacta de la cédula de votación.</p>
+                            </div>
+                        </div>
+                        <div class="feature-item">
+                            <span class="feature-icon">📱</span>
+                            <div>
+                                <h4>Realidad Aumentada</h4>
+                                <p>Proyecta la cédula y el ánfora en tu propio entorno físico.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-actions">
+                    <button id="btn-start" class="btn btn-primary btn-large">Comenzar Simulación</button>
+                    <button id="btn-ar-direct" class="btn btn-secondary btn-large">Ver en Realidad Aumentada (AR)</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- 3. HEAD BAR (HUD) -->
+        <header id="app-header">
+            <div class="header-logo">
+                <span class="header-logo-icon">🗳️</span>
+                <span class="header-logo-text">Simulador ONPE 3D</span>
+            </div>
+            
+            <div class="progress-indicator">
+                <div class="step-label">Paso <span id="current-step-num">1</span> de 6</div>
+                <div class="hud-progress-container">
+                    <div id="hud-progress-fill" class="hud-progress-fill"></div>
+                </div>
+                <div id="current-step-title" class="step-title">Ingresar al Local</div>
+            </div>
+
+            <div class="header-actions">
+                <button id="btn-hud-ar" class="btn btn-icon-text btn-ar" title="Ver en Realidad Aumentada">
+                    <span>📱</span> Realidad Aumentada
+                </button>
+                <button id="btn-hud-help" class="btn btn-icon" title="Ayuda / Instrucciones">❓</button>
+                <button id="btn-hud-reset" class="btn btn-icon" title="Reiniciar Simulación">🔄</button>
+            </div>
+        </header>
+
+        <!-- 4. DIALOG / INSTRUCTION PANEL -->
+        <div id="instruction-panel" class="instruction-panel">
+            <div class="instruction-icon" id="instruction-icon">📍</div>
+            <div class="instruction-content">
+                <h4 id="instruction-step">PASO 1: Ingresa al local</h4>
+                <p id="instruction-text">Usa las teclas <strong>WASD</strong> para caminar y el <strong>mouse</strong> para mirar a tu alrededor. Dirígete hacia la puerta de entrada de la escuela para iniciar.</p>
+            </div>
+            <div class="instruction-action" id="instruction-action-container">
+                <!-- Action buttons will be dynamically injected here -->
+            </div>
+        </div>
+
+        <!-- 5. THREE.JS CONTAINER -->
+        <main id="canvas-container">
+            <!-- WebGL Canvas will be injected here -->
+            
+            <!-- Crosshair for PointerLockControls -->
+            <div id="crosshair" class="hidden">
+                <div class="crosshair-dot"></div>
+            </div>
+
+            <!-- Hint overlay for Pointer Lock -->
+            <div id="controls-hint" class="hidden">
+                Haz clic en la pantalla para activar el control de cámara (Vista Primera Persona)
+                <br><small>Presiona ESC para liberar el cursor</small>
+            </div>
+        </main>
+
+        <!-- 6. VOTING INTERACTION MODAL (ESCENA 7) -->
+        <div id="voting-modal" class="ui-overlay">
+            <div class="ballot-container">
+                <div class="ballot-sidebar">
+                    <h3>Cédula Metropolitana</h3>
+                    <p class="ballot-instructions">Dibuja libremente tu marca sobre el recuadro del partido que eliges. Usa el <strong>ratón como un lapicero</strong>: mantén pulsado y traza tu <strong>X</strong> o <strong>+</strong> rojo dentro del cuadro. Usa la rueda del ratón para hacer zoom.</p>
+                    
+                    <div class="ballot-modes">
+                        <div class="mode-section">
+                            <h4>Ejemplos de Votos</h4>
+                            <button id="btn-demo-valid" class="btn btn-outline btn-sm">Voto Válido (Ejemplo)</button>
+                            <div class="invalid-examples">
+                                <label>Votos Nulos / Inválidos:</label>
+                                <button id="btn-demo-outside" class="btn btn-outline-danger btn-sm">Fuera de recuadro</button>
+                                <button id="btn-demo-double" class="btn btn-outline-danger btn-sm">Múltiples marcas</button>
+                                <button id="btn-demo-wrong-symbol" class="btn btn-outline-danger btn-sm">Símbolos incorrectos (✓)</button>
+                                <button id="btn-demo-scribble" class="btn btn-outline-danger btn-sm">Rayones</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <button id="btn-undo-stroke" class="btn btn-outline btn-sm" style="margin-bottom: 10px; width: 100%;">↩ Borrar último trazo</button>
+                    <button id="btn-clear-ballot" class="btn btn-outline-danger btn-sm" style="margin-bottom: 18px; width: 100%;">🗑 Borrar todo</button>
+
+                    <div id="vote-feedback" class="vote-feedback">
+                        Dibuja tu marca (X o +) en el recuadro del candidato.
+                    </div>
+
+                    <div class="ballot-actions">
+                        <button id="btn-confirm-vote" class="btn btn-primary btn-large disabled">Confirmar y Doblar Cédula</button>
+                    </div>
+                </div>
+
+                <div class="ballot-viewport">
+                    <div class="ballot-view-controls">
+                        <button id="btn-ballot-zoom-in" class="btn btn-icon">➕</button>
+                        <button id="btn-ballot-zoom-out" class="btn btn-icon">➖</button>
+                        <button id="btn-ballot-reset" class="btn btn-outline btn-sm">Centrar</button>
+                    </div>
+                    <!-- The interactive HTML5 canvas where the PDF-like ballot is drawn, zoomed, and marked -->
+                    <div class="ballot-canvas-wrapper" id="ballot-canvas-wrapper">
+                        <canvas id="interactive-ballot-canvas"></canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 7. HELP MODAL -->
+        <div id="help-modal" class="modal-overlay">
+            <div class="modal-box">
+                <div class="modal-header">
+                    <h3>Guía de Simulación de Votación</h3>
+                    <button class="modal-close" id="btn-close-help">&times;</button>
+                </div>
+                <div class="modal-body">
+                    <h4>Controles de Movimiento</h4>
+                    <p>Utiliza las siguientes teclas para desplazarte por la escena:</p>
+                    <table class="help-table">
+                        <tr><td><kbd>W</kbd> / <kbd>▲</kbd></td><td>Avanzar hacia adelante</td></tr>
+                        <tr><td><kbd>S</kbd> / <kbd>▼</kbd></td><td>Retroceder</td></tr>
+                        <tr><td><kbd>A</kbd> / <kbd>◀</kbd></td><td>Desplazarse a la izquierda</td></tr>
+                        <tr><td><kbd>D</kbd> / <kbd>▶</kbd></td><td>Desplazarse a la derecha</td></tr>
+                        <tr><td><kbd>Mouse</kbd></td><td>Girar la mirada de la cámara</td></tr>
+                        <tr><td><kbd>Clic Izquierdo</kbd></td><td>Interactuar con personas y objetos</td></tr>
+                        <tr><td><kbd>ESC</kbd></td><td>Mostrar el cursor de tu ratón</td></tr>
+                    </table>
+                    
+                    <h4>Pasos de la Votación</h4>
+                    <ol class="help-list">
+                        <li><strong>Ingresar:</strong> Camina hacia la puerta de entrada.</li>
+                        <li><strong>Identificarte:</strong> Entrega tu DNI al miembro de mesa haciendo clic sobre él o sobre la mesa.</li>
+                        <li><strong>Recoger Cédula:</strong> Haz clic en el botón "Recoger Cédula" para recibir la cédula y el lapicero.</li>
+                        <li><strong>Votar:</strong> Camina hacia la cabina y entra para abrir la cédula. Haz una X en tu candidato preferido.</li>
+                        <li><strong>Doblar Cédula:</strong> Haz clic en Confirmar para ver la animación de doblado.</li>
+                        <li><strong>Depositar:</strong> Dirígete al ánfora amarilla e introduce la cédula. ¡Listo!</li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+
+        <!-- 8. AUGMENTED REALITY (AR) MODAL -->
+        <div id="ar-modal" class="modal-overlay">
+            <div class="modal-box ar-modal-box">
+                <div class="modal-header">
+                    <h3>📱 Realidad Aumentada (AR)</h3>
+                    <button class="modal-close" id="btn-close-ar">&times;</button>
+                </div>
+                <div class="modal-body ar-modal-body">
+                    <p style="grid-column:1/span 2; margin-bottom:4px;">
+                        Explora los objetos electorales en 3D en tu espacio real. Selecciona el modelo y luego escanea el QR con tu móvil:
+                    </p>
+
+                    <!-- Model selector tabs -->
+                    <div class="ar-selectors">
+                        <button class="ar-select-btn active" data-model="cedula">🗳️ Cédula de Votación</button>
+                        <button class="ar-select-btn" data-model="anfora">🏺 Ánfora (Urna)</button>
+                        <button class="ar-select-btn" data-model="cabina">🔲 Cabina Electoral</button>
+                    </div>
+
+                    <!-- 3D Viewer -->
+                    <div class="ar-viewer-container">
+                        <model-viewer id="ar-viewer"
+                            src="./models/cedula.glb"
+                            alt="Modelo 3D para Realidad Aumentada"
+                            ar
+                            ar-modes="webxr scene-viewer quick-look"
+                            camera-controls
+                            auto-rotate
+                            auto-rotate-delay="500"
+                            rotation-per-second="30deg"
+                            shadow-intensity="1.5"
+                            shadow-softness="0.8"
+                            environment-image="neutral"
+                            exposure="1.2"
+                            style="width: 100%; height: 380px; background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%); border-radius: 8px;">
+                            <button slot="ar-button" class="btn btn-primary ar-button">
+                                📱 Proyectar en mi Espacio (AR)
+                            </button>
+                        </model-viewer>
+                    </div>
+
+                    <!-- QR + Instructions panel -->
+                    <div class="ar-instructions">
+                        <h5>Cómo usar en móvil:</h5>
+                        <ul>
+                            <li><strong>Opción 1 — Escanea el QR</strong> desde tu celular para abrir esta página en AR directamente.</li>
+                            <li><strong>Opción 2 — Misma red WiFi:</strong> conecta tu móvil a la misma red, luego abre la URL que aparece en la terminal de tu PC (ej: <code style="background:#f3f4f6;padding:1px 5px;border-radius:3px;font-size:0.8rem;">http://192.168.x.x:3000</code>).</li>
+                            <li><strong>En Android</strong> toca el botón "Proyectar en mi Espacio" para abrir Google Scene Viewer con AR nativo.</li>
+                            <li><strong>En iOS (Safari)</strong> usa el botón AR para Quick Look.</li>
+                        </ul>
+
+                        <div class="qr-container">
+                            <div id="ar-qr-code"></div>
+                            <span class="qr-label" id="ar-qr-note">Escanea con tu celular</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 9. SUCCESS OVERLAY -->
+        <div id="success-screen" class="ui-overlay">
+            <!-- Confetti particles (CSS animated) -->
+            <div class="confetti-container" aria-hidden="true">
+                <span class="confetti-piece" style="--i:1"></span>
+                <span class="confetti-piece" style="--i:2"></span>
+                <span class="confetti-piece" style="--i:3"></span>
+                <span class="confetti-piece" style="--i:4"></span>
+                <span class="confetti-piece" style="--i:5"></span>
+                <span class="confetti-piece" style="--i:6"></span>
+                <span class="confetti-piece" style="--i:7"></span>
+                <span class="confetti-piece" style="--i:8"></span>
+                <span class="confetti-piece" style="--i:9"></span>
+                <span class="confetti-piece" style="--i:10"></span>
+                <span class="confetti-piece" style="--i:11"></span>
+                <span class="confetti-piece" style="--i:12"></span>
+            </div>
+
+            <div class="success-card">
+                <div class="success-badge">🎓</div>
+                <div class="success-title-block">
+                    <div class="success-tag">LOGRO DESBLOQUEADO</div>
+                    <h2>¡FELICIDADES!</h2>
+                    <h3>COMPLETASTE LA RUTA DE APRENDIZAJES</h3>
+                </div>
+
+                <p class="success-desc">Has vivido el proceso electoral completo en primera persona.<br>
+                Ahora estás listo para ejercer tu voto con confianza y seguridad.</p>
+
+                <ul class="success-checklist">
+                    <li><span class="check-icon">✅</span> Ingresaste correctamente al local de votación</li>
+                    <li><span class="check-icon">✅</span> Te identificaste ante el miembro de mesa</li>
+                    <li><span class="check-icon">✅</span> Recogiste tu cédula y lapicero</li>
+                    <li><span class="check-icon">✅</span> Votaste en secreto dentro de la cabina</li>
+                    <li><span class="check-icon">✅</span> Realizaste una marca válida (X o +) en tu candidato</li>
+                    <li><span class="check-icon">✅</span> Doblaste la cédula para proteger tu decisión</li>
+                    <li><span class="check-icon">✅</span> Depositaste tu voto en el ánfora</li>
+                </ul>
+
+                <div class="success-actions">
+                    <button id="btn-success-restart" class="btn btn-primary btn-large">🔄 Repetir Simulación</button>
+                    <button id="btn-success-ar" class="btn btn-ar btn-large">📱 Ver en Realidad Aumentada</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Application Script -->
+    <script type="module" src="/src/main.js"></script>
+</body>
+</html>

@@ -1,0 +1,230 @@
+/* ----------------------------------------------------
+   RESPONSIVE DESIGN RULES
+   ---------------------------------------------------- */
+
+@media (max-width: 992px) {
+    /* Ballot layout adjustments */
+    .ballot-container {
+        width: 98%;
+        height: 95vh;
+    }
+    .ballot-sidebar {
+        width: 280px;
+        padding: 20px 15px;
+    }
+}
+
+@media (max-width: 768px) {
+    /* Header layout */
+    #app-header {
+        height: auto;
+        padding: 10px 15px;
+        flex-wrap: wrap;
+        gap: 10px;
+    }
+    .header-logo {
+        flex: 1 1 45%;
+    }
+    .header-actions {
+        flex: 1 1 45%;
+        justify-content: flex-end;
+    }
+    .progress-indicator {
+        flex: 1 1 100%;
+        order: 3;
+        width: 100%;
+        max-width: none;
+        margin-top: 5px;
+    }
+    .btn-ar span {
+        display: none; /* Hide emoji if tight on space */
+    }
+
+    /* Welcome card */
+    .welcome-card {
+        width: 95%;
+        max-height: 95vh;
+        overflow-y: auto;
+    }
+    .card-header {
+        padding: 20px 15px;
+    }
+    .card-header h1 {
+        font-size: 1.5rem;
+    }
+    .card-body {
+        padding: 20px 15px;
+    }
+    .features-grid {
+        grid-template-columns: 1fr;
+        gap: 12px;
+    }
+    .feature-item {
+        display: flex;
+        align-items: center;
+        text-align: left;
+        padding: 12px 15px;
+        gap: 15px;
+    }
+    .feature-icon {
+        margin-bottom: 0;
+        font-size: 1.6rem;
+    }
+    .card-actions {
+        padding: 15px;
+        flex-direction: column;
+        gap: 10px;
+    }
+    .btn-large {
+        padding: 12px 20px;
+    }
+
+    /* HUD Instructions Panel */
+    .instruction-panel {
+        bottom: 15px;
+        padding: 12px 15px;
+        gap: 12px;
+    }
+    .instruction-icon {
+        width: 40px;
+        height: 40px;
+        font-size: 1.2rem;
+    }
+    .instruction-content p {
+        font-size: 0.85rem;
+    }
+    
+    /* Interactive Ballot Container (Crucial stack change) */
+    .ballot-container {
+        flex-direction: column-reverse;
+        height: 98vh;
+    }
+    .ballot-sidebar {
+        width: 100%;
+        height: auto;
+        border-right: none;
+        border-top: 1px solid rgba(0, 0, 0, 0.08);
+        padding: 15px;
+        justify-content: flex-start;
+        overflow-y: auto;
+        max-height: 45%;
+    }
+    .ballot-sidebar h3, .ballot-instructions {
+        display: none; /* Hide header and helper text to save space on mobile */
+    }
+    .mode-section h4 {
+        margin-bottom: 6px;
+        font-size: 0.75rem;
+    }
+    .ballot-modes .btn {
+        margin-bottom: 5px;
+        font-size: 0.75rem;
+        padding: 5px 10px;
+    }
+    .invalid-examples {
+        margin-top: 8px;
+        padding-top: 8px;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 5px;
+    }
+    .invalid-examples label {
+        width: 100%;
+        margin-bottom: 3px;
+    }
+    .invalid-examples .btn {
+        margin-bottom: 0;
+        flex: 1 1 30%;
+    }
+    .vote-feedback {
+        margin-bottom: 12px;
+        padding: 8px 10px;
+        font-size: 0.75rem;
+    }
+    .ballot-viewport {
+        padding: 10px;
+        flex: 1;
+        height: 55%;
+    }
+    .ballot-view-controls {
+        top: 10px;
+        right: 10px;
+    }
+
+    /* AR Modal Stack */
+    .ar-modal-body {
+        grid-template-columns: 1fr;
+        gap: 15px;
+    }
+    .ar-selectors {
+        grid-column: 1;
+    }
+    .ar-select-btn {
+        padding: 8px;
+        font-size: 0.75rem;
+    }
+    .ar-instructions {
+        align-items: center;
+        text-align: center;
+    }
+    .ar-instructions ul {
+        text-align: left;
+        margin-bottom: 15px;
+    }
+    .qr-container {
+        display: none; /* Hide QR code on mobile devices since they are already on mobile */
+    }
+
+    /* Success Card */
+    .success-card {
+        padding: 25px 15px;
+    }
+    .success-card h2 {
+        font-size: 1.5rem;
+    }
+    .success-card h3 {
+        font-size: 1rem;
+        margin-bottom: 15px;
+    }
+    .success-checklist {
+        padding: 15px;
+        margin-bottom: 20px;
+    }
+    .success-checklist li {
+        font-size: 0.8rem;
+    }
+    .success-actions {
+        flex-direction: column;
+        gap: 10px;
+    }
+    .success-actions .btn {
+        width: 100%;
+    }
+}
+
+@media (max-height: 600px) {
+    /* Optimize vertical height for landscape mobile */
+    #app-header {
+        height: 50px;
+        padding: 5px 10px;
+    }
+    .step-label, .hud-progress-container {
+        display: none; /* Hide step details to save height */
+    }
+    .instruction-panel {
+        bottom: 5px;
+        padding: 8px;
+    }
+    .welcome-card {
+        max-height: 98vh;
+    }
+    .card-header {
+        padding: 15px;
+    }
+    .card-body {
+        padding: 10px 15px;
+    }
+    .features-grid {
+        display: none; /* Hide grid entirely in small landscape */
+    }
+}
