@@ -1,6 +1,5 @@
 {
-  "buildCommand": "cd Voto_Informado && npm install && npm run build",
-  "outputDirectory": "Voto_Informado/dist",
-  "installCommand": "echo 'skip root install'",
-  "framework": null
+  "rewrites": [
+    { "source": "/((?!simulador3d/.*).*)", "destination": "/index.html" }
+  ]
 }
